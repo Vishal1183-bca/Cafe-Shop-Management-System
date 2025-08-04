@@ -1,0 +1,57 @@
+.gradient{
+    -fx-background-color: linear-gradient(to bottom right,#0f6789,#286155);
+}
+/*#loginLabel {*/
+/*    -fx-text-fill: #286155;*/
+/*}*/
+#createLabel1{
+    -fx-text-fill: #fffcfc;
+}
+/*#createButton{*/
+/*    -fx-background-color: #fffcfc;*/
+/*    -fx-text-fill: #000000;*/
+/*}*/
+.whiteForm{
+    -fx-background-color: #fff;
+}
+/*#loginButton{*/
+/*    -fx-background-color: fffcfc;*/
+/*    -fx-text-fill: #000000;*/
+/*}*/
+#cafe1{
+    -fx-text-fill: #fffcfc;
+}
+.head-label{
+    -fx-text-fill: #399a8f;
+    -fx-border-color: #286155;
+    -fx-border-width: 0 0 0 5px;
+    -fx-padding: 0 0 0 5px;
+}
+.login-btn{
+    -fx-background-color: linear-gradient(to bottom right,#098c53,#246861);
+    -fx-background-radius:5px ;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+}
+.login-btn:hover{
+    -fx-background-color: linear-gradient(to bottom right,#0fb565,#399a8f);
+}
+.textfield{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right,#0f6789,#286155);
+    -fx-border-width: .5px;
+}
+.textfield:focused{
+    -fx-border-width: 1px;
+}
+.create-btn{
+   -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-border-color: #fff;
+    -fx-border-width: 1px;
+}
+.create-btn:hover{
+    -fx-background-color: #fff;
+    -fx-text-fill: #000;
+}
