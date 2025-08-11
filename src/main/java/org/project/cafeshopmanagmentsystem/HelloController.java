@@ -31,6 +31,9 @@ public class HelloController implements Initializable {
     private TextField fp_answer;
 
     @FXML
+    private TextField fp_username;
+
+    @FXML
     private Button fp_backl_btn;
 
     @FXML
@@ -152,8 +155,6 @@ public class HelloController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Login Successful");
                     alert.showAndWait();
-
-
                 }
                 else {
                     alert = new Alert(Alert.AlertType.ERROR);
@@ -264,14 +265,132 @@ public class HelloController implements Initializable {
     {
         fp_format.setVisible(true);
         si_login_format1.setVisible(false);
+        forgetPassQuetionList();
+
+    }
+
+    public void forgetPassQuetionList()
+    {
+        List<String> listQ = new ArrayList<>();
+        for(String data : quetionList){
+            listQ.add(data);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listQ);
+        fp_quetion.setItems(listData);
+    }
+
+    public void proceedBtn(){
+        if(fp_quetion.getSelectionModel().getSelectedItem() == null || fp_answer.getText().isEmpty())
+        {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please Fill all black Fields");
+            alert.showAndWait();
+        }else{
+            String selectData = "SELECT username,question,answer from signUpp WHERE username = ? AND question = ? AND answer = ? ";
+            connection = Conn.connectDB();
+            try
+            {
+                prepare = connection.prepareStatement(selectData);
+                prepare.setString(1, fp_username.getText());
+                prepare.setString(2,fp_quetion.getSelectionModel().getSelectedItem().toString());
+                prepare.setString(3,fp_answer.getText());
+
+                resultSet = prepare.executeQuery();
+                if(resultSet.next())
+                {
+                    si_login_format111.setVisible(true);
+                    fp_format.setVisible(false);
+                }
+
+                else{
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Incorrect Information");
+                    alert.showAndWait();
+                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void changePasswordBtn()
+    {
+        if(np_newPassWord.getText().isEmpty() || no_confirmPass.getText().isEmpty())
+        {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please Fill all black Fields");
+            alert.showAndWait();
+        }
+        else {
+            
+            if(np_newPassWord.getText().equals(no_confirmPass.getText())) {
+
+
+                String getDate = "SELECT date FROM signUpp where username = '" + fp_username.getText() + "'";
+                connection = Conn.connectDB();
+                try {
+                    prepare = connection.prepareStatement(getDate);
+                    resultSet = prepare.executeQuery();
+                    String date = "";
+                    if (resultSet.next()) {
+                        date = resultSet.getString("date");
+                    }
+                    String updatePassword = "UPDATE signUpp set password = '"
+                            + np_newPassWord.getText() + "',question = '"
+                            + fp_quetion.getSelectionModel().getSelectedItem() + "',answer = '" + fp_answer.getText() + "',date = '" + date + "' where username = '" + fp_username.getText() + "'";
+                    
+                    prepare = connection.prepareStatement(updatePassword);
+                    prepare.executeUpdate();
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Changed Password");
+                    alert.showAndWait();
+
+                    si_login_format111.setVisible(false);
+                    si_login_format1.setVisible(true);
+
+                    np_newPassWord.setText("");
+                    no_confirmPass.setText("");
+                    fp_username.setText("");
+                    fp_quetion.getSelectionModel().clearSelection();
+                    fp_answer.setText("");
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+            }
+            else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("No Matching Password Found");
+                alert.showAndWait();
+            }
+           
+        }
+    }
+
+    public void backToLoginForm()
+    {
+        si_login_format1.setVisible(true);
+        fp_format.setVisible(false);
 
 
     }
 
-    public void fb_back_btn()
+    public void backToQuetion()
     {
-        fp_format.setVisible(false);
-        si_login_format1.setVisible(true);
+        fp_format.setVisible(true);
+        si_login_format111.setVisible(false);
     }
     public void switchForm(ActionEvent event)
     {
