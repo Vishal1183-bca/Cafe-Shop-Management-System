@@ -22,9 +22,9 @@
                      </font>
                   </Label>
                   <Button fx:id="fp_proceed_btn" layoutX="43.0" layoutY="249.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Proceed" />
-                  <ComboBox fx:id="fp_quetion" layoutX="43.0" layoutY="141.0" prefHeight="30.0" prefWidth="200.0" promptText="Question" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <ComboBox fx:id="fp_quetion" layoutX="43.0" layoutY="141.0" onAction="#switchForgatPass" prefHeight="30.0" prefWidth="200.0" promptText="Question" styleClass="textfield" stylesheets="@loginDesign.css" />
                   <TextField fx:id="fp_answer" layoutX="43.0" layoutY="194.0" prefHeight="30.0" prefWidth="200.0" promptText="Answer" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <Button fx:id="fp_backl_btn" layoutX="92.0" layoutY="339.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="103.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Back" />
+                  <Button fx:id="fp_backl_btn" layoutX="92.0" layoutY="339.0" mnemonicParsing="false" onAction="#fb_back_btn" prefHeight="40.0" prefWidth="103.0" styleClass="login-btn" stylesheets="@loginDesign.css" text="Back" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="si_login_format1" layoutX="298.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0" stylesheets="@loginDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0">

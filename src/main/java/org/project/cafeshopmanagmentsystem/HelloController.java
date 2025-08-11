@@ -152,6 +152,8 @@ public class HelloController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Login Successful");
                     alert.showAndWait();
+
+
                 }
                 else {
                     alert = new Alert(Alert.AlertType.ERROR);
@@ -266,6 +268,11 @@ public class HelloController implements Initializable {
 
     }
 
+    public void fb_back_btn()
+    {
+        fp_format.setVisible(false);
+        si_login_format1.setVisible(true);
+    }
     public void switchForm(ActionEvent event)
     {
         TranslateTransition slider = new TranslateTransition();
