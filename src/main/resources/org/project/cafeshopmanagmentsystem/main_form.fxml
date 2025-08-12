@@ -15,14 +15,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.cafeshopmanagmentsystem.MainFormController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
          <children>
             <BorderPane layoutX="443.0" layoutY="187.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
@@ -39,16 +40,21 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <Label fx:id="menu_label_2" layoutX="24.0" layoutY="116.0" stylesheets="@mainFormDesign.css" text="Welcome, MarcoMan" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="-13.0">
+                              <Label fx:id="menu_label_2" layoutX="24.0" layoutY="116.0" prefHeight="25.0" prefWidth="82.0" stylesheets="@mainFormDesign.css" text="Welcome, " AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="117.0">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Button layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Dashboard" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" />
-                              <Button layoutX="2.0" layoutY="224.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Inventory" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="1.0" />
-                              <Button layoutY="277.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" />
-                              <Button layoutY="336.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Customers" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" />
-                              <Button layoutX="80.0" layoutY="552.0" mnemonicParsing="false" styleClass="logout" stylesheets="@mainFormDesign.css" text="Sign Out" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="82.0" />
+                              <Button fx:id="dashboard_btn" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Dashboard" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" />
+                              <Button fx:id="inventory_btn" layoutX="2.0" layoutY="224.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Inventory" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="1.0" />
+                              <Button fx:id="menu_btn" layoutY="277.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" />
+                              <Button fx:id="customers_btn" layoutY="336.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="nav-btn" stylesheets="@mainFormDesign.css" text="Customers" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" />
+                              <Button fx:id="signout_btn" layoutX="80.0" layoutY="552.0" mnemonicParsing="false" onAction="#logout" styleClass="logout" stylesheets="@mainFormDesign.css" text="Sign Out" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="82.0" />
+                              <Label fx:id="username" layoutX="103.0" layoutY="116.0" stylesheets="@mainFormDesign.css" text="MarcoMan">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>
@@ -182,7 +188,7 @@
                               <Separator layoutX="35.0" layoutY="207.0" prefHeight="8.0" prefWidth="850.0" AnchorPane.rightAnchor="15.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="289.0" layoutY="100.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="inventory_form" layoutX="289.0" layoutY="100.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="31.0" layoutY="14.0" prefHeight="294.0" prefWidth="855.0" stylesheets="@mainFormDesign.css" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                  <styleClass>
@@ -191,15 +197,15 @@
                                     <String fx:value="radius" />
                                  </styleClass>
                                  <children>
-                                    <TreeTableView layoutX="14.0" layoutY="11.0" prefHeight="267.0" prefWidth="828.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                                    <TreeTableView fx:id="inventory_tableview" layoutX="14.0" layoutY="11.0" prefHeight="267.0" prefWidth="828.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                                       <columns>
-                                        <TreeTableColumn prefWidth="75.0" text="ID Product" />
-                                        <TreeTableColumn prefWidth="120.0" text="Product Name" />
-                                          <TreeTableColumn prefWidth="120.0" text="Type" />
-                                          <TreeTableColumn prefWidth="120.0" text="Stock" />
-                                          <TreeTableColumn prefWidth="120.0" text="Price" />
-                                          <TreeTableColumn prefWidth="145.0" text="Status" />
-                                          <TreeTableColumn prefWidth="145.0" text="Date" />
+                                        <TreeTableColumn fx:id="inventory_col_id" prefWidth="75.0" text="Product ID" />
+                                        <TreeTableColumn fx:id="inventory_col_product_name" prefWidth="120.0" text="Product Name" />
+                                          <TreeTableColumn fx:id="inventory_col_tyoe" prefWidth="120.0" text="Type" />
+                                          <TreeTableColumn fx:id="inventory_col_stock" prefWidth="120.0" text="Stock" />
+                                          <TreeTableColumn fx:id="inventory_col_price" prefWidth="120.0" text="Price" />
+                                          <TreeTableColumn fx:id="inventory_col_status" prefWidth="145.0" text="Status" />
+                                          <TreeTableColumn fx:id="inventory_col_date" prefWidth="145.0" text="Date" />
                                       </columns>
                                        <columnResizePolicy>
                                           <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -222,30 +228,33 @@
                                     <String fx:value="radius" />
                                  </styleClass>
                                  <children>
-                                    <Label layoutX="37.0" layoutY="30.0" text="ID Product:" />
-                                    <TextField layoutX="115.0" layoutY="17.0" />
+                                    <Label layoutX="37.0" layoutY="30.0" text="Product ID:" />
+                                    <TextField fx:id="inventory_product_id" layoutX="115.0" layoutY="17.0" />
                                     <Label layoutX="14.0" layoutY="76.0" text="Product Name:" />
-                                    <TextField layoutX="115.0" layoutY="72.0" />
+                                    <TextField fx:id="inventory_product_name" layoutX="115.0" layoutY="72.0" />
                                     <Label layoutX="64.0" layoutY="127.0" text="Type:" />
-                                    <ComboBox layoutX="116.0" layoutY="123.0" prefWidth="150.0" promptText="Choose Type..." />
+                                    <ComboBox fx:id="inventory_type" layoutX="116.0" layoutY="123.0" prefWidth="150.0" promptText="Choose Type..." />
                                     <Label layoutX="377.0" layoutY="21.0" text="Stock:" />
-                                    <TextField layoutX="432.0" layoutY="17.0" text="0" />
+                                    <TextField fx:id="inventory_stock" layoutX="432.0" layoutY="17.0" text="0" />
                                     <Label layoutX="360.0" layoutY="76.0" text="Price ($):" />
-                                    <TextField layoutX="432.0" layoutY="72.0" text="\$0.0" />
-                                    <AnchorPane layoutX="691.0" layoutY="12.0" prefHeight="128.0" prefWidth="146.0" stylesheets="@mainFormDesign.css" AnchorPane.rightAnchor="18.0">
+                                    <TextField fx:id="inventory_price" layoutX="432.0" layoutY="72.0" text="\$0.0" />
+                                    <AnchorPane layoutX="691.0" layoutY="12.0" prefHeight="128.0" prefWidth="179.0" stylesheets="@mainFormDesign.css" AnchorPane.rightAnchor="18.0">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="radius" />
                                           <String fx:value="shadow" />
                                        </styleClass>
+                                       <children>
+                                          <ImageView fx:id="inventory_imageView" fitHeight="125.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
                                     </AnchorPane>
-                                    <Button layoutX="702.0" layoutY="150.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Import" AnchorPane.rightAnchor="29.0" />
-                                    <Button layoutX="19.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Add" AnchorPane.bottomAnchor="24.0" />
-                                    <Button layoutX="162.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Update" AnchorPane.bottomAnchor="24.0" />
-                                    <Button layoutX="306.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Clear" AnchorPane.bottomAnchor="24.0" />
-                                    <Button layoutX="454.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Delete" AnchorPane.bottomAnchor="24.0" />
+                                    <Button fx:id="import_btn" layoutX="675.0" layoutY="150.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Import" AnchorPane.rightAnchor="56.0" />
+                                    <Button fx:id="add_btn" layoutX="19.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Add" AnchorPane.bottomAnchor="24.0" />
+                                    <Button fx:id="update_btn" layoutX="162.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Update" AnchorPane.bottomAnchor="24.0" />
+                                    <Button fx:id="clear_btn" layoutX="306.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Clear" AnchorPane.bottomAnchor="24.0" />
+                                    <Button fx:id="delete_btn" layoutX="454.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Delete" AnchorPane.bottomAnchor="24.0" />
                                     <Label layoutX="375.0" layoutY="127.0" text="Status:" />
-                                    <ComboBox layoutX="432.0" layoutY="123.0" prefWidth="150.0" promptText="Choose Status.." />
+                                    <ComboBox fx:id="inventory_status" layoutX="432.0" layoutY="123.0" prefWidth="150.0" promptText="Choose Status.." />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="31.0" layoutY="328.0" prefHeight="1.0" prefWidth="854.0" AnchorPane.bottomAnchor="269.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="15.0" />

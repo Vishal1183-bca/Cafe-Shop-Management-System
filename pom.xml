@@ -46,6 +46,13 @@
             <version>${javafx.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>util</artifactId>
+            <version>4.0.20</version>
+        </dependency>
+
+
         <!-- Gluon Glisten Dependency with JavaFX exclusions -->
         <dependency>
             <groupId>com.gluonhq</groupId>

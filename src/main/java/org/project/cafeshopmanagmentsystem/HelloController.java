@@ -5,11 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -150,11 +155,23 @@ public class HelloController implements Initializable {
                 resultSet = prepare.executeQuery();
                 if(resultSet.next())
                 {
+                    //to get username
+                    data.username = login_username.getText();
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
                     alert.setHeaderText(null);
                     alert.setContentText("Login Successful");
                     alert.showAndWait();
+
+                    Parent root = FXMLLoader.load(getClass().getResource("main_form.fxml"));
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+                    stage.setTitle("Cafe Shop Management System");
+                    stage.setMinWidth(1100);
+                    stage.setMinHeight(600);
+                    stage.setScene(scene);
+                    stage.show();
+                    si_login_format1.getScene().getWindow().hide();
                 }
                 else {
                     alert = new Alert(Alert.AlertType.ERROR);
@@ -164,7 +181,7 @@ public class HelloController implements Initializable {
 
                     alert.showAndWait();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
