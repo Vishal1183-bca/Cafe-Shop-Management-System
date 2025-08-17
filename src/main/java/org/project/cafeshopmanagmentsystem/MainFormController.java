@@ -12,11 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -82,25 +85,25 @@ public class MainFormController implements Initializable
     private Button inventory_btn;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_date;
+    private TreeTableColumn<ProductData, Date> inventory_col_date;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_id;
+    private TreeTableColumn<ProductData, String> inventory_col_id;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_price;
+    private TreeTableColumn<ProductData, Double> inventory_col_price;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_product_name;
+    private TreeTableColumn<ProductData, String> inventory_col_product_name;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_status;
+    private TreeTableColumn<ProductData, String> inventory_col_status;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_stock;
+    private TreeTableColumn<ProductData, String> inventory_col_stock;
 
     @FXML
-    private TreeTableColumn<?, ?> inventory_col_tyoe;
+    private TreeTableColumn<ProductData, String> inventory_col_tyoe;
 
     @FXML
     private AnchorPane inventory_form;
@@ -109,7 +112,7 @@ public class MainFormController implements Initializable
     private ImageView inventory_imageView;
 
     @FXML
-    private TreeTableView<?> inventory_tableview;
+    private TreeTableView<ProductData> inventory_tableview;
 
     @FXML
     private AnchorPane main_form;
@@ -164,6 +167,92 @@ public class MainFormController implements Initializable
     private ResultSet result;
 
 
+    private Image image;
+    public void inventoryAddBtn()
+    {
+        if(inventory_product_id.getText().isEmpty()
+                ||  inventory_product_name.getText().isEmpty()
+                ||  inventory_stock.getText().isEmpty()
+                ||  inventory_price.getText().isEmpty()
+                || inventory_type.getSelectionModel().getSelectedItem() == null
+                || inventory_status.getSelectionModel().getSelectedItem() == null
+                || data.pasth == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all the fields");
+            alert.showAndWait();
+        }
+        else{
+            String checkProdID = "select prod_id from product where prod_id= '"+inventory_product_id.getText()+"' ";
+            connect = Conn.connectDB();
+            try {
+                statement = connect.createStatement();
+                result = statement.executeQuery(checkProdID);
+                if(result.next())
+                {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText(inventory_product_id.getText() + " already exists");
+                    alert.showAndWait();
+                }
+                else{
+                    String insertData = "insert into product " + "(prod_id,prod_name,stock,price,status,type,image,date)"+"values(?,?,?,?,?,?,?,?)";
+                    prepare = connect.prepareStatement(insertData);
+                    prepare.setString(1, inventory_product_id.getText());
+                    prepare.setString(2, inventory_product_name.getText());
+                    prepare.setString(3, inventory_stock.getText());
+                    prepare.setDouble(4, Double.parseDouble(inventory_price.getText()));
+                    prepare.setString(5, inventory_status.getSelectionModel().getSelectedItem().toString());
+                    prepare.setString(6, inventory_type.getSelectionModel().getSelectedItem().toString());
+                    String path = data.pasth;
+                    path = path.replace("\\","\\\\");
+                    prepare.setString(7, path);
+                    Date date = new Date();
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    prepare.setString(8,String.valueOf(sqlDate));
+                    prepare.executeUpdate();
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully added product");
+                    alert.showAndWait();
+
+                    inventoryShowData();
+                    inventoryClearBtn();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void inventoryClearBtn()
+    {
+        inventory_product_id.setText("");
+        inventory_product_name.setText("");
+        inventory_stock.setText("");
+        inventory_price.setText("");
+        inventory_status.getSelectionModel().clearSelection();
+        inventory_type.getSelectionModel().clearSelection();
+        data.pasth = "";
+        inventory_imageView.setImage(null);
+    }
+
+    public void inventoryImportBtn()
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Open image","*png","*jpg","*jpeg"));
+        File file = fileChooser.showOpenDialog(main_form.getScene().getWindow());
+        if(file != null)
+        {
+            data.pasth = file.getAbsolutePath();
+            image = new Image(file.toURI().toString());
+            inventory_imageView.setImage(image);
+        }
+    }
     public ObservableList<ProductData> inventoryDataList()
     {
         ObservableList<ProductData> listData = FXCollections.observableArrayList();
@@ -183,7 +272,7 @@ public class MainFormController implements Initializable
                         result.getString("status"),
                         result.getString("type"),
                         result.getString("image"),
-                        result.getDate("datel"));
+                        result.getDate("date"));
 
                 listData.add(productData);
             }
@@ -206,7 +295,7 @@ public class MainFormController implements Initializable
         TreeTableColumn<ProductData, String> inventory_col_stock = new TreeTableColumn<>("stock");
         TreeTableColumn<ProductData, Double> inventory_col_price = new TreeTableColumn<>("Price");
         TreeTableColumn<ProductData, String> inventory_col_status = new TreeTableColumn<>("status");
-        TreeTableColumn<ProductData, Date> inventory_col_date = new TreeTableColumn<>("datel");
+        TreeTableColumn<ProductData, Date> inventory_col_date = new TreeTableColumn<>("date");
 
 
         inventory_col_id.setCellValueFactory(
@@ -219,8 +308,9 @@ public class MainFormController implements Initializable
                 param -> new SimpleStringProperty(param.getValue().getValue().getType())
         );
         inventory_col_stock.setCellValueFactory(
-                param -> new SimpleStringProperty(param.getValue().getValue().getStatus())
+                param -> new SimpleStringProperty(String.valueOf(param.getValue().getValue().getStock()))
         );
+
         inventory_col_price.setCellValueFactory(
                 param -> new SimpleObjectProperty<>(param.getValue().getValue().getPrice())
         );
@@ -228,11 +318,28 @@ public class MainFormController implements Initializable
                 param -> new SimpleStringProperty(param.getValue().getValue().getStatus())
         );
         inventory_col_date.setCellValueFactory(
-                param -> new SimpleObjectProperty(param.getValue().getValue().getDatel())
+                param -> new SimpleObjectProperty<>(param.getValue().getValue().getDate())
         );
 
 
+        TreeItem<ProductData> root = new TreeItem<>(new ProductData());
+        root.setExpanded(true);
 
+        for (ProductData data : inventoryListData) {
+            root.getChildren().add(new TreeItem<>(data));
+        }
+        inventory_tableview.setRoot(root);
+        inventory_tableview.setShowRoot(false);
+
+        inventory_tableview.getColumns().setAll(
+                inventory_col_id,
+                inventory_col_product_name,
+                inventory_col_tyoe,
+                inventory_col_stock,
+                inventory_col_price,
+                inventory_col_status,
+                inventory_col_date
+        );
 
 
     }
@@ -295,5 +402,6 @@ public class MainFormController implements Initializable
         displayUsername();
         inventoryTypeList();
         statusList();
+        inventoryShowData();
     }
 }

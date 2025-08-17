@@ -12,8 +12,8 @@ public class ProductData
     private String status;
     private String type;
     private String image;
-    private Date datel;
-    public ProductData(Integer id, String productId, String productName, String stock, Double price, String status, String type, String image, Date datel) {
+    private Date date;
+    public ProductData(Integer id, String productId, String productName, String stock, Double price, String status, String type, String image, Date date) {
         this.id = id;
         this.productId = productId;
         this.productName = productName;
@@ -22,7 +22,11 @@ public class ProductData
         this.status = status;
         this.type = type;
         this.image = image;
-        this.datel = datel;
+        this.date = date;
+    }
+
+    public ProductData() {
+
     }
 
     public Integer getId() {
@@ -89,11 +93,11 @@ public class ProductData
         this.image = image;
     }
 
-    public Date getDatel() {
-        return datel;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDatel(Date datel) {
-        this.datel = datel;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
