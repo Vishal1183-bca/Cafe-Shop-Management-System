@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -158,6 +159,61 @@ public class MainFormController implements Initializable
 
     @FXML
     private ComboBox<?> inventory_type;
+
+
+    @FXML
+    private AnchorPane main_form2;
+
+
+
+    @FXML
+    private TextField menu_amount;
+
+
+
+
+    @FXML
+    private Label menu_cgange;
+
+    @FXML
+    private TableColumn<?, ?> menu_col_price;
+
+    @FXML
+    private TableColumn<?, ?> menu_col_productName;
+
+    @FXML
+    private TableColumn<?, ?> menu_col_quantity;
+
+    @FXML
+    private AnchorPane menu_form;
+
+    @FXML
+    private GridPane menu_gridPane;
+
+
+
+    @FXML
+    private Button menu_paybtn;
+
+    @FXML
+    private Button menu_receiptbtn;
+
+    @FXML
+    private Button menu_removebtn;
+
+    @FXML
+    private ScrollPane menu_scrollPane;
+
+    @FXML
+    private TableView<?> menu_tableView;
+
+    @FXML
+    private Label menu_total;
+
+
+
+
+
 
     private Alert alert;
 
@@ -466,13 +522,15 @@ public class MainFormController implements Initializable
         inventory_product_id.setText(String.valueOf(productData.getProductId()));
         inventory_product_name.setText(productData.getProductName());
         inventory_price.setText(String.valueOf(productData.getPrice()));
-        data.pasth = productData.getImage();
+
 
         inventory_stock.setText(String.valueOf(productData.getStock()));
 
         data.date = String.valueOf(productData.getDate());
         data.id = productData.getId();
-        String path = productData.getImage();
+        data.pasth = productData.getImage();
+        String path = "File:" + productData.getImage();
+
         image = new Image(path);
         inventory_imageView.setImage(image);
 
