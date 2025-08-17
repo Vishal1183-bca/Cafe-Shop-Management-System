@@ -291,6 +291,56 @@ public class MainFormController implements Initializable
             }
         }
     }
+
+
+    public void inventoryDeleteBtn()
+    {
+        if( data.id == 0)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all the fields");
+            alert.showAndWait();
+        }
+        else {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Are You sure to Delete the product ID " + inventory_product_id.getText() + "?");
+            Optional<ButtonType> option =  alert.showAndWait();
+            if(option.get() == ButtonType.OK){
+                String deleteData = "delete from product where id = " + data.id;
+                try {
+
+                    prepare = connect.prepareStatement(deleteData);
+                    prepare.executeUpdate();
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully deleted the product ID " + inventory_product_id.getText() + "!");
+                    alert.showAndWait();
+                    inventoryShowData();
+                    inventoryClearBtn();
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+            else{
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Cancelled.");
+                alert.showAndWait();
+            }
+
+
+        }
+    }
+
+
     public void inventoryClearBtn()
     {
         inventory_product_id.setText("");
@@ -415,13 +465,17 @@ public class MainFormController implements Initializable
         if((num - 1) < -1) return;
         inventory_product_id.setText(String.valueOf(productData.getProductId()));
         inventory_product_name.setText(productData.getProductName());
+        inventory_price.setText(String.valueOf(productData.getPrice()));
+        data.pasth = productData.getImage();
 
         inventory_stock.setText(String.valueOf(productData.getStock()));
+
         data.date = String.valueOf(productData.getDate());
         data.id = productData.getId();
-        data.pasth = "File:" + productData.getImage();
-        inventory_imageView.setImage(new Image(data.pasth));
-        inventory_price.setText(String.valueOf(productData.getPrice()));
+        String path = productData.getImage();
+        image = new Image(path);
+        inventory_imageView.setImage(image);
+
 
     }
 
