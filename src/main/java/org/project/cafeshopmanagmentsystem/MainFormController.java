@@ -229,6 +229,68 @@ public class MainFormController implements Initializable
         }
     }
 
+    public void inventoryUpdateBtn()
+    {
+        if(inventory_product_id.getText().isEmpty()
+                ||  inventory_product_name.getText().isEmpty()
+                ||  inventory_stock.getText().isEmpty()
+                ||  inventory_price.getText().isEmpty()
+                || inventory_type.getSelectionModel().getSelectedItem() == null
+                || inventory_status.getSelectionModel().getSelectedItem() == null
+                || data.pasth == null || data.id == 0)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all the fields");
+            alert.showAndWait();
+        }
+        else{
+            String path = data.pasth;
+            path = path.replace("\\","\\\\");
+            String updateData = "Update product set "
+                    + "prod_id='"+inventory_product_id.getText()
+                    +"',prod_name = '"+inventory_product_name.getText()
+                    +"', stock = '"+inventory_stock.getText()
+                    +"',price = '"+inventory_price.getText()
+                    +"',status = '"+inventory_status.getSelectionModel().getSelectedItem().toString()
+                    +"',type = '"+inventory_type.getSelectionModel().getSelectedItem().toString()
+                    +"',image = '"+path+"',date = '"+data.date+"' where id = " + data.id;
+
+            connect = Conn.connectDB();
+            try{
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to update the product ID " + inventory_product_id.getText() + "?");
+                Optional<ButtonType> option =  alert.showAndWait();
+                if(option.get() == ButtonType.OK){
+                    prepare = connect.prepareStatement(updateData);
+                    prepare.executeUpdate();
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully updated the product ID " + inventory_product_id.getText() + "!");
+                    alert.showAndWait();
+                    inventoryShowData();
+                    inventoryClearBtn();
+                }
+                else{
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Cancelled.");
+                    alert.showAndWait();
+                }
+
+
+
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
     public void inventoryClearBtn()
     {
         inventory_product_id.setText("");
@@ -238,6 +300,7 @@ public class MainFormController implements Initializable
         inventory_status.getSelectionModel().clearSelection();
         inventory_type.getSelectionModel().clearSelection();
         data.pasth = "";
+        data.id = 0;
         inventory_imageView.setImage(null);
     }
 
@@ -341,6 +404,24 @@ public class MainFormController implements Initializable
                 inventory_col_date
         );
 
+
+
+    }
+
+    public void inventorySelectData()
+    {
+        ProductData productData = inventory_tableview.getSelectionModel().getSelectedItem().getValue();
+        int num = inventory_tableview.getSelectionModel().getSelectedIndex();
+        if((num - 1) < -1) return;
+        inventory_product_id.setText(String.valueOf(productData.getProductId()));
+        inventory_product_name.setText(productData.getProductName());
+
+        inventory_stock.setText(String.valueOf(productData.getStock()));
+        data.date = String.valueOf(productData.getDate());
+        data.id = productData.getId();
+        data.pasth = "File:" + productData.getImage();
+        inventory_imageView.setImage(new Image(data.pasth));
+        inventory_price.setText(String.valueOf(productData.getPrice()));
 
     }
 

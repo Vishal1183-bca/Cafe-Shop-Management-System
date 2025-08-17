@@ -197,7 +197,7 @@
                                     <String fx:value="radius" />
                                  </styleClass>
                                  <children>
-                                    <TreeTableView fx:id="inventory_tableview" layoutX="14.0" layoutY="11.0" prefHeight="267.0" prefWidth="828.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
+                                    <TreeTableView fx:id="inventory_tableview" layoutX="14.0" layoutY="11.0" onMouseClicked="#inventorySelectData" prefHeight="267.0" prefWidth="828.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="11.0">
                                       <columns>
                                         <TreeTableColumn fx:id="inventory_col_id" prefWidth="75.0" text="Product ID" />
                                         <TreeTableColumn fx:id="inventory_col_product_name" prefWidth="120.0" text="Product Name" />
@@ -237,7 +237,7 @@
                                     <Label layoutX="377.0" layoutY="21.0" text="Stock:" />
                                     <TextField fx:id="inventory_stock" layoutX="432.0" layoutY="17.0" text="0" />
                                     <Label layoutX="360.0" layoutY="76.0" text="Price ($):" />
-                                    <TextField fx:id="inventory_price" layoutX="432.0" layoutY="72.0" text="\$0.0" />
+                                    <TextField fx:id="inventory_price" layoutX="432.0" layoutY="72.0" text="0.0" />
                                     <AnchorPane layoutX="691.0" layoutY="12.0" prefHeight="128.0" prefWidth="179.0" stylesheets="@mainFormDesign.css" AnchorPane.rightAnchor="18.0">
                                        <styleClass>
                                           <String fx:value="white-bg" />
@@ -250,7 +250,7 @@
                                     </AnchorPane>
                                     <Button fx:id="import_btn" layoutX="675.0" layoutY="150.0" mnemonicParsing="false" onAction="#inventoryImportBtn" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Import" AnchorPane.rightAnchor="56.0" />
                                     <Button fx:id="add_btn" layoutX="19.0" layoutY="183.0" mnemonicParsing="false" onAction="#inventoryAddBtn" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Add" AnchorPane.bottomAnchor="24.0" />
-                                    <Button fx:id="update_btn" layoutX="162.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Update" AnchorPane.bottomAnchor="24.0" />
+                                    <Button fx:id="update_btn" layoutX="162.0" layoutY="183.0" mnemonicParsing="false" onAction="#inventoryUpdateBtn" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Update" AnchorPane.bottomAnchor="24.0" />
                                     <Button fx:id="clear_btn" layoutX="306.0" layoutY="183.0" mnemonicParsing="false" onAction="#inventoryClearBtn" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Clear" AnchorPane.bottomAnchor="24.0" />
                                     <Button fx:id="delete_btn" layoutX="454.0" layoutY="183.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="124.0" styleClass="btn" stylesheets="@mainFormDesign.css" text="Delete" AnchorPane.bottomAnchor="24.0" />
                                     <Label layoutX="375.0" layoutY="127.0" text="Status:" />
