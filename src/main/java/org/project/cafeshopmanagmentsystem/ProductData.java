@@ -25,6 +25,14 @@ public class ProductData
         this.date = date;
     }
 
+    public ProductData(Integer id, String productId, String productName, Double price, String image) {
+        this.id = id;
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.image = image;
+    }
+
     public ProductData() {
 
     }

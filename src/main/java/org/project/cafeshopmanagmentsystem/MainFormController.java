@@ -224,6 +224,13 @@ public class MainFormController implements Initializable
 
 
     private Image image;
+
+
+    //IMP
+    private ObservableList<ProductData> cardListData;
+
+
+
     public void inventoryAddBtn()
     {
         if(inventory_product_id.getText().isEmpty()
@@ -560,6 +567,9 @@ public class MainFormController implements Initializable
         inventory_status.setItems(listdata);
     }
 
+    public ObservableList<ProductData> menuGetData(){
+        return cardListData;
+    }
     public void logout()
     {
         try{
